@@ -48,15 +48,15 @@ Download TotalSegmentatorV1.0 dataset from [Zenodo](https://zenodo.org/records/6
 python inference_TotalSegmentator.py
 ```
 
-#### 3.3 Code for inference on a single 2D image-label pair
+#### 3.3 Code for inference on a single 3D image-label pair
 
 Follow the code below to do inference. The correspondence between \[_class\] and text embedding is in the [DAP_Atlas_label_name.csv](./DAP_Atlas_label_name.csv).
 
 ```
 from segae import segae_inference
 
-# ct_slice is a CT slice (numpy ndarray) of original HU values
-# pred_mask_slice is the 0/1 mask (numpy ndarray) of the target
+# ct_slice is a CT volume ([D, H, W], numpy ndarray) of original HU values
+# pred_mask_slice is the 0/1 mask ([D, H, W], numpy ndarray) of the target
 # find the text embedding of your target, _class is an integer key
 dsc = segae_inference(ct_data, mask_this_class, _class)
 ```
