@@ -16,7 +16,7 @@ Two technical novelties:
 1. The text-driven condition module embeds the organ names, serving as the conditional input of the model to recognize 142 different organs and improving the model performance.
 2. The training of the model involves a compositional loss, combining optimal pair ranking and MSE, to align predicted with actual DSC.
 
-### 2. Framework for Quality Sentinel
+### 2. Framework for SegAE
 
 (1) Training Framework
 
@@ -28,7 +28,7 @@ Both the training and testing data are drawn from the DAP Atlas dataset featurin
 
 ### 3. Quick Start
 
-The Quality Sentinel dataset and the trained model are shared in ([Google Drive](https://drive.google.com/drive/folders/1bMDSVSDB3Qv-6IhMaFloVdXZ52QP2V9X?usp=sharing)). After downloading the zipped dataset, unzip it to this directory directly.
+The SegAE dataset and the trained model are shared in ([Google Drive](https://drive.google.com/drive/folders/1bMDSVSDB3Qv-6IhMaFloVdXZ52QP2V9X?usp=sharing)). After downloading the zipped dataset, unzip it to this directory directly.
 
 #### 3.1 Train the model
 
@@ -38,7 +38,7 @@ Run
 python train.py
 ```
 
-and it would read the data from ./Quality_Sentinel_data_50samples and save the model as best_resnet50_model_40_samples.pth.
+and it would read the data from ./SegAE_data_50samples and save the model as best_resnet50_model_40_samples.pth.
 
 #### 3.2 Inference on the TotalSegmentator dataset
 
@@ -54,7 +54,7 @@ Follow the code below to do inference. The correspondence between \[_class\] and
 
 ```
 import torchvision.transforms as transforms
-from model import QualitySentinel
+from model import SegAE
 from dataset import Clip_Rescale, crop_slices
 
 with open('label_embedding.pkl', 'rb') as file:
@@ -75,7 +75,7 @@ transform_mask = transforms.Compose([
     transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 
-model = QualitySentinel(hidden_dim=50, backbone=model_name, embedding='text_embedding')
+model = SegAE(hidden_dim=50, backbone=model_name, embedding='text_embedding')
 model.load_state_dict(torch.load("best_resnet50_model_40_samples.pth"))
 model.to(device)
 model.eval()
