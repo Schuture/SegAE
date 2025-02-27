@@ -53,51 +53,12 @@ python inference_TotalSegmentator.py
 Follow the code below to do inference. The correspondence between \[_class\] and text embedding is in the [DAP_Atlas_label_name.csv](./DAP_Atlas_label_name.csv).
 
 ```
-import torchvision.transforms as transforms
-from model import SegAE
-from dataset import Clip_Rescale, crop_slices
+from segae import segae_inference
 
-with open('label_embedding.pkl', 'rb') as file:
-    embedding_dict = pickle.load(file)
-
-transform_ct = transforms.Compose([
-        Clip_Rescale(min_val=-200, max_val=200),
-        transforms.ToPILImage(),
-        transforms.Resize((256, 256)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.5], std=[0.25])
-])
-
-transform_mask = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.Resize((256, 256)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.5], std=[0.5])
-])
-
-model = SegAE(hidden_dim=50, backbone=model_name, embedding='text_embedding')
-model.load_state_dict(torch.load("best_resnet50_model_40_samples.pth"))
-model.to(device)
-model.eval()
-
-# ct_data shoule be a [D,H,W] 3D volume, mask_this_class should be the same size with binary values
-ct_slice, pred_mask_slice = crop_slices(
-    [ct_data[slice_idx, :, :], mask_this_class[slice_idx, :, :]],
-    mask_this_class[slice_idx, :, :]
-)
-
-# ct_slice is a CT slice of original HU values
-# pred_mask_slice is the 0/1 mask of the target
-ct_slice = transform_ct(ct_slice).unsqueeze(0)
-pred_mask_slice = transform_mask(pred_mask_slice).unsqueeze(0)
-
+# ct_slice is a CT slice (numpy ndarray) of original HU values
+# pred_mask_slice is the 0/1 mask (numpy ndarray) of the target
 # find the text embedding of your target, _class is an integer key
-text_embedding = embedding_dict[_class]
-
-image_tensor = torch.cat((ct_slice, pred_mask_slice), dim=1).to(device)
-embedding_tensor = text_embedding.to(device)
-
-predicted_dice = model(image_tensor, embedding_tensor)
+dsc = segae_inference(ct_data, mask_this_class, _class)
 ```
 
 
