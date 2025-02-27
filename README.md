@@ -105,15 +105,15 @@ predicted_dice = model(image_tensor, embedding_tensor)
 
 (1) The scatter plot of ground truth and predicted DSC on testing data, the high linear correlation coefficient demonstrates the performance of the model. 
 
-<img src="./figs/scatter plot.jpg" width = "500" height = "360" alt="The predicted DSC vs GT DSC" align=center />
+<img src="./figs/scatter plot.jpg" width = "800" height = "250" alt="The predicted DSC vs GT DSC" align=center />
 
 (2) Human-in-the-Loop (active learning) results of label quality ranking methods on the TotalSegmentator. SegAE helps to reduce annotation costs, or improve the data efficiency.
 
-<img src="./figs/active_learning.png" width = "800" height = "250" alt="Active Learning" align=center />
+<img src="./figs/active_learning.jpg" width = "800" height = "250" alt="Active Learning" align=center />
 
 (3) Semi-supervised learning results of label quality ranking methods on the TotalSegmentator. SegAE outperforms all alternatives. It also significantly reduces quality estimation costs (6 times less time, 60 times less RAM, and 20,000 times less disk space compared to MC dropout) by employing a 2D model that evaluates only the output mask slices instead of extensive 3D computation.
 
-<img src="./figs/semi-supervised learning.jpg" width = "800" height = "150" alt="Semi-Supervised Learning" align=center />
+<img src="./figs/semi-supervised learning.jpg" width = "800" height = "180" alt="Semi-Supervised Learning" align=center />
 
 ### 5. Environment
 
