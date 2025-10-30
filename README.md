@@ -1,5 +1,5 @@
 # Segmentation Assessment Engine
-This is the repository of SegAE, a label (mask) quality assessment tool for pan-organ image segmentation, implemented with PyTorch. 
+This is the repository of SegAE, a label (mask) quality assessment tool for CT image segmentation, implemented with PyTorch. 
 - Below shows labels with lower (left) and higher (right) predicted DSC in AbdomenAtlas dataset. 
 - This model helps to diagnose the data quality in a large-scale CT image segmentation dataset.
 
@@ -28,7 +28,7 @@ Both the training and testing data are drawn from the DAP Atlas dataset featurin
 
 ### 3. Quick Start
 
-The SegAE dataset and the trained model are shared in ([Google Drive](https://drive.google.com/drive/folders/1bMDSVSDB3Qv-6IhMaFloVdXZ52QP2V9X?usp=sharing)). After downloading the zipped dataset, unzip it to this directory directly.
+The SegAE dataset and the trained model are shared in ([Google Drive](https://drive.google.com/drive/folders/1KIenyE_OQ8rixHXPhscVPvK9sRrvpXwz?usp=sharing)). After downloading the zipped dataset, unzip it to this directory directly.
 
 #### 3.1 Train the model
 
@@ -78,7 +78,7 @@ dsc = segae_inference(ct_data, mask_this_class, _class)
 
 ### 5. Environment
 
-The code is developed with Intel Xeon Gold 5218R CPU@2.10GHz and 8 Nvidia Quadro RTX 8000 GPUs.
+The code is developed with Intel Xeon Gold 5218R CPU@2.10GHz and Nvidia RTX A6000 GPUs.
 
 The install script requirements.txt has been tested on an Ubuntu 20.04 system.
 
